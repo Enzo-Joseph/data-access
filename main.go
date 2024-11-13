@@ -7,12 +7,11 @@ import (
 	"os"
 
 	"github.com/go-sql-driver/mysql"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
+var db *sql.DB
+
 type Album struct {
-	gorm.Model
 	ID     int64
 	Title  string
 	Artist string
@@ -20,11 +19,6 @@ type Album struct {
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
-
 	// Capture connection properties.
 	cfg := mysql.Config{
 		User:   os.Getenv("DBUSER"),
